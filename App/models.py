@@ -1,4 +1,5 @@
 from App import db, login_manager, app
+import csv
 
 class Response(db.Model):
     __tablename__ = "responses"
@@ -65,3 +66,12 @@ class Response(db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return Response.query.get(user_id)
+
+def create_dataset():
+    outfile = open('outputs/GameData.csv', 'wb')
+    outcsv = csv.writer(outfile)
+    records = Response.query.all()
+    outcsv.writerow([column.name for column in Response.__mapper__.columns])
+    for curr in records:
+        outcsv.writerow([getattr(curr, column.name) for column in Response.__mapper__.columns])
+    outfile.close()

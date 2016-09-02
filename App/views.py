@@ -1,7 +1,7 @@
 from App import app, db
-from flask import request, redirect, url_for, render_template, abort
+from flask import request, redirect, url_for, render_template, send_file
 from flask_login import login_user, login_required, current_user
-from .models import Response
+from .models import Response, create_dataset
 
 @app.route('/', methods=["GET"])
 def home():
@@ -43,8 +43,18 @@ def gamestart():
     elif user.weeknumber < 4:
         return render_template('Budgeter2.html', **template_args)
     else:
-        return "END GAME"
+        return "The game is over. Your validation code for the MechanicalTurk HIT is: \nCFDM0087Q\n\nYour bonus will be sent to you soon."
 
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+
+
+@app.route('/getGameData')
+def plot_csv():
+    create_dataset()
+    return send_file('outputs/GameData.csv',
+                     mimetype='text/csv',
+                     attachment_filename='Adjacency.csv',
+                     as_attachment=True)
