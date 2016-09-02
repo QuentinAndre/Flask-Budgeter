@@ -1,6 +1,7 @@
 from App import db, login_manager, app
 from flask import url_for
 import csv
+import sys
 
 
 class Response(db.Model):
@@ -70,6 +71,7 @@ def load_user(user_id):
 
 
 def create_dataset():
+    print(url_for('outputs', filename='GameData.csv'), file=sys.stderr)
     outfile = open(url_for('outputs', filename='GameData.csv'), 'w')
     outcsv = csv.writer(outfile)
     records = Response.query.all()
