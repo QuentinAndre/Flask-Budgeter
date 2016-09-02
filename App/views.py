@@ -43,7 +43,9 @@ def gamestart():
     elif user.weeknumber < 4:
         return render_template('Budgeter2.html', **template_args)
     else:
-        return "The game is over. Your validation code for the MechanicalTurk HIT is: \nCFDM0087Q\n\nYour bonus will be sent to you soon."
+        return """The game is over. Your validation code for the MechanicalTurk HIT is:
+        CFDM0087Q
+        Your bonus will be sent to you soon."""
 
 @app.route("/login")
 def login():
@@ -54,7 +56,7 @@ def login():
 @app.route('/getGameData')
 def plot_csv():
     create_dataset()
-    return send_file('outputs/GameData.csv',
+    return send_file('/outputs/GameData.csv',
                      mimetype='text/csv',
-                     attachment_filename='Adjacency.csv',
+                     attachment_filename='GameData.csv',
                      as_attachment=True)
