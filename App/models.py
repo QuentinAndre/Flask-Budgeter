@@ -68,7 +68,7 @@ def load_user(user_id):
     return Response.query.get(user_id)
 
 def create_dataset():
-    outfile = open('outputs/GameData.csv', 'wb')
+    outfile = open('/outputs/GameData.csv', 'wb')
     outcsv = csv.writer(outfile)
     records = Response.query.all()
     outcsv.writerow([column.name for column in Response.__mapper__.columns])
