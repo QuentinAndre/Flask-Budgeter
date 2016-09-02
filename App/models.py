@@ -1,6 +1,7 @@
 from App import db, login_manager, app
-from Flask import url_for
+from flask import url_for
 import csv
+
 
 class Response(db.Model):
     __tablename__ = "responses"
@@ -27,7 +28,6 @@ class Response(db.Model):
 
     def is_authenticated(self):
         return True
-
 
     def is_active(self):
         return True
@@ -57,19 +57,20 @@ class Response(db.Model):
     def get_id(self):
         return self.turkid
 
-
     def __repr__(self):
         base = "MTurk ID = {}\n".format(self.turkid)
         for key, value in self.info.items():
             base += "{} = {}\n".format(key, value)
         return base
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return Response.query.get(user_id)
 
+
 def create_dataset():
-    outfile = open( url_for('outputs', filename='GameData.csv'), 'w')
+    outfile = open(url_for('outputs', filename='GameData.csv'), 'w')
     outcsv = csv.writer(outfile)
     records = Response.query.all()
     outcsv.writerow([column.name for column in Response.__mapper__.columns])
