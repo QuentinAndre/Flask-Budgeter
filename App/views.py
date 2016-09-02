@@ -56,7 +56,7 @@ def login():
 @app.route('/getGameData')
 def plot_csv():
     create_dataset()
-    return send_file(url_for('outputs', filename='GameData.csv'),
+    return send_file(url_for('static', filename='GameData.csv'),
                      mimetype='text/csv',
                      attachment_filename='GameData.csv',
                      as_attachment=True)

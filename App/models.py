@@ -71,8 +71,8 @@ def load_user(user_id):
 
 
 def create_dataset():
-    print(url_for('outputs', filename='GameData.csv'), file=sys.stderr)
-    outfile = open(url_for('outputs', filename='GameData.csv'), 'w')
+    print(url_for('static', filename='GameData.csv'), file=sys.stderr)
+    outfile = open(url_for('static', filename='GameData.csv'), 'w')
     outcsv = csv.writer(outfile)
     records = Response.query.all()
     outcsv.writerow([column.name for column in Response.__mapper__.columns])
