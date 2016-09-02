@@ -1,7 +1,4 @@
-from App import db, login_manager, app
-from flask import url_for
-import csv
-import sys
+from App import db, login_manager
 
 
 class Response(db.Model):
@@ -68,14 +65,3 @@ class Response(db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return Response.query.get(user_id)
-
-
-def create_dataset():
-    print(url_for('static', filename='GameData.csv'), file=sys.stderr)
-    outfile = open(url_for('static', filename='GameData.csv'), 'w')
-    outcsv = csv.writer(outfile)
-    records = Response.query.all()
-    outcsv.writerow([column.name for column in Response.__mapper__.columns])
-    for curr in records:
-        outcsv.writerow([getattr(curr, column.name) for column in Response.__mapper__.columns])
-    outfile.close()

@@ -1,7 +1,7 @@
 from App import app, db
-from flask import request, redirect, url_for, render_template, send_file
+from flask import request, redirect, url_for, render_template
 from flask_login import login_user, login_required, current_user
-from .models import Response, create_dataset
+from .models import Response
 
 @app.route('/', methods=["GET"])
 def home():
@@ -18,7 +18,7 @@ def home():
         login_user(user, remember=True)
 
     else:
-        fundtype = "food" if request.args.get("condid") == 0 else "special"
+        fundtype = "food" if request.args.get("condid") == "0" else "special"
         user = Response(turkid, fundtype)
         login_user(user, remember=True)
         db.session.add(user)
@@ -50,13 +50,3 @@ def gamestart():
 @app.route("/login")
 def login():
     return render_template("login.html")
-
-
-
-@app.route('/getGameData')
-def plot_csv():
-    create_dataset()
-    return send_file(url_for('static', filename='GameData.csv'),
-                     mimetype='text/csv',
-                     attachment_filename='GameData.csv',
-                     as_attachment=True)
