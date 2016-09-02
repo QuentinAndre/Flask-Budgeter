@@ -68,3 +68,11 @@
 #totalballs {
 
 }
+
+tfoot {
+    background-color: #dddddd;
+}
+
+tfoot td {
+    background-color: #dddddd;
+}

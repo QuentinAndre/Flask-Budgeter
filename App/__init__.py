@@ -5,7 +5,7 @@ from flask_login import LoginManager
 import sys
 app = Flask(__name__)
 app.config.from_object('config')
-heroku = Heroku(app)
+#heroku = Heroku(app)
 print(app.config["SQLALCHEMY_DATABASE_URI"], file=sys.stderr)
 print(app.config.items(), file=sys.stderr)
 login_manager = LoginManager()
