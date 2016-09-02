@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Budget</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href={{ url_for('static', filename='Budgeter.css') }}>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script>
+        var fundtype = "{{ fundtype }}";
+        var fundpastbalance = parseFloat(parseFloat("{{ fundpastbalance }}").toFixed(2));
+        var salarypastbalance = parseFloat(parseFloat("{{ salarypastbalance }}").toFixed(2));
+        var week = parseInt("{{ weeknumber }}");
+        var redirpath = "{{ redirpath }}";
+        var fundhistory = "{{ fundhistory }}".split("*");
+        var salaryhistory = "{{ salaryhistory }}".split("*");
+        var foodhistorysalary = "{{ foodhistorysalary }}".split("*");
+        var foodhistoryfund = "{{ foodhistoryfund }}".split("*");
+    </script>
+    <script src={{ url_for('static', filename='Budgeter2.js') }}></script>
+    <script src={{ url_for('static', filename='redirect.js') }}></script>
+</head>
+
+<body>
+<div id="dialog-paygroceries" style="display: none;" title="Paying your groceries">
+    <p><span id="txt-groceriesprompt" class="dialog"></span></p>
+</div>
+<div id="dialog-paymisc" style="display: none;" title="Paying your misc. expenses.">
+    <p><span id="txt-miscprompt" class="dialog"></span></p>
+</div>
+
+
+<div id="errormessage">
+    Something went wrong. Please reload the page (F5 on your keyboard in Windows, or Command + R on Mac).
+</div>
+<div class="container" style="display: none;">
+    <div class="row match-my-cols">
+        <div class="col-md-12">
+            <h2>Week <span class="txt-week"></span>/4</h2>
+            <div id="tabs">
+                <ul>
+                    <li><a href="#tabs-recurring">Recurring Income and Expenses</a></li>
+                    <li><a href="#tabs-groceries">Grocery Shopping</a></li>
+                    <li><a href="#tabs-misc">Misc. Expenses</a></li>
+                </ul>
+                <div id="tabs-recurring">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default" id="panel-fundpastbalance">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><span class="txt-fundtypecaps">Food</span> Card Balance</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row triplemarg">
+                                        <div class="col-md-12">
+                                            <div id="fundpastbalanceprompt">
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <div id="btn-cashfundpastbalance">&nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" id="panel-salarypastbalance">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Bank Account Balance</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row triplemarg">
+                                        <div class="col-md-12">
+                                            <div id="salarypastbalanceprompt">&nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <div id="btn-cashsalarypastbalance">Add the bank account balance
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" id="panel-salary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Salary</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row triplemarg">
+                                        <div class="col-md-12">You have received your weekly paycheck in the mail:
+                                            $<span id="txt-salary">400</span>.
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <div id="btn-cashsalary">Cash the paycheck</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" id="panel-rent">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Rent and Utilities</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row triplemarg">
+                                        <div class="col-md-12">You must pay rent and utilities for this week, for a
+                                            total of $<span id="txt-rent">250</span>.
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <div id="btn-payrent">Pay rent and utilities</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="centerBlock">
+                                <div id="btn-togroceries" class="btn btn-default" style="display: none;">Next: Grocery
+                                    Shopping
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Budget Summary</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table" id="tablebudget1">
+                                        <thead>
+                                        <tr>
+                                            <th style="border: 0">&nbsp;</th>
+                                            <th style="border: 0">Bank Account</th>
+                                            <th style="border: 0"><span class="txt-fundtypecaps">Food</span> Account
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td><b>Balance</b></td>
+                                            <td><b>+ $<span class="txt-cardbalance">&nbsp;</span></b></td>
+                                            <td><b>+ $<span class="txt-fundbalance">&nbsp;</span></b></td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabs-groceries">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default" id="panel-meals">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Meal Planning</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <div class="centerBlock">
+                                            <div class="row triplemarg">
+                                                Please plan your 14 menus (7 lunches and 7 dinner) for this week, and
+                                                strike the right balance between being happy with what you eat, and
+                                                having enough money left for other things.
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8 col-md-offset-2">
+                                                    <div class="row simplemarg">
+                                                        <input class="spinner" id="input-thriftymeals"
+                                                               name="input-thriftymeals">
+                                                        <label for="input-thriftymeals">Thrifty Menus <span
+                                                                class="glyphicon glyphicon-question-sign"
+                                                                title="Ramen, bread, frozen foods, pasta or rice in bulk...">&nbsp;</span></label>
+                                                    </div>
+                                                    <div class="row simplemarg">
+                                                        <input class="spinner" id="input-regularmeals"
+                                                               name="input-regularmeals">
+                                                        <label for="input-regularmeals">Regular Menus <span
+                                                                class="glyphicon glyphicon-question-sign"
+                                                                title="Chicken and ground beef, sauces, vegetables, store branded cereals and cakes...">&nbsp;</span></label>
+                                                    </div>
+                                                    <div class="row simplemarg">
+                                                        <input class="spinner" id="input-indulgentmeals"
+                                                               name="input-indulgentmeals">
+                                                        <label for="input-indulgentmeals">Indulgent Menus <span
+                                                                class="glyphicon glyphicon-question-sign"
+                                                                title="Seafood, fresh vegetables, high-quality meat and poultry, premium brands...">&nbsp;</span></label>
+                                                    </div>
+                                                    <div class="row simplemarg">
+                                                        <form class="form-inline">
+                                                            <input readonly class="form-control" name="input-nmeals"
+                                                                   id="input-nmeals">
+                                                            <label for="input-nmeals">Total Menus</label>
+                                                        </form>
+                                                    </div>
+                                                    <div class="row triplemarg">
+                                                        <form class="form-inline">
+                                                            <div id="btn-tocheckout">Proceed to Checkout.</div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" id="panel-checkout">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title" id="title-checkout">Total in groceries:
+                                        $120.</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-4">
+                                        <div id="btn-payfoodfromcard">Pay with Debit Card</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div id="btn-payfoodfromfund">Pay with <span
+                                                class="txt-fundtypecaps">Food</span>
+                                            Card
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div id="btn-tostore">Change Menus</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="centerBlock">
+                                <div id="btn-tomisc" class="btn btn-default" style="display: none;">Next: Misc. Expenses
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Budget Summary</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table" id="tablebudget2">
+                                        <thead>
+                                        <tr>
+                                            <th style="border: 0">&nbsp;</th>
+                                            <th style="border: 0">Bank Account</th>
+                                            <th style="border: 0"><span class="txt-fundtypecaps">Food</span> Account
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td><b>Balance</b></td>
+                                            <td><b>+ $<span class="txt-cardbalance">&nbsp;</span></b></td>
+                                            <td><b>+ $<span class="txt-fundbalance">&nbsp;</span></b></td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="tabs-misc">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row triplemarg">
+                                <div class="col-md-12">
+                                    Please review all the following spending opportunities, and then make a decision
+                                    for each of them.
+                                </div>
+                            </div>
+                            <div class="row triplemarg">
+                                <div id="accordion-misc">
+                                    <h3 id="title-misc0" class="misctitles padheader">Section 1</h3>
+                                    <div id="body-misc0">
+                                        <div class="row triplemarg"><span id="txt-misc0" class="misctxts"></span></div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="btn-paymiscfromcard">Pay with Debit Card</div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="btn-paymiscfromfund">Pay with <span
+                                                        class="txt-fundtypecaps">Food</span>
+                                                    Card
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="btn-rejectoffer">Do not spend money</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3 id="title-misc1" class="misctitles padheader">Section 1</h3>
+                                    <div id="body-misc1">
+                                        <div class="row triplemarg"><span id="txt-misc1" class="misctxts"></span></div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="btn-paymiscfromcard">Pay with Debit Card</div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="btn-paymiscfromfund">Pay with <span
+                                                        class="txt-fundtypecaps">Food</span>
+                                                    Card
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="btn-rejectoffer">Do not spend money</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3 id="title-misc2" class="misctitles padheader">Section 1</h3>
+                                    <div id="body-misc2">
+                                        <div class="row triplemarg"><span id="txt-misc2" class="misctxts"></span></div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="btn-paymiscfromcard">Pay with Debit Card</div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="btn-paymiscfromfund">Pay with <span
+                                                        class="txt-fundtypecaps">Food</span> Card
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="btn-rejectoffer">Do not spend money</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row triplemarg">
+                                <div class="centerBlock">
+                                    <br>
+                                    <div id="btn-tonextweek" class="btn btn-default">Proceed to Next Week
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Budget Summary</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table" id="tablebudget3">
+                                        <thead>
+                                        <tr>
+                                            <th style="border: 0">&nbsp;</th>
+                                            <th style="border: 0">Bank Account</th>
+                                            <th style="border: 0"><span class="txt-fundtypecaps">Food</span> Account
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td><b>Balance</b></td>
+                                            <td><b>+ $<span class="txt-cardbalance">&nbsp;</span></b></td>
+                                            <td><b>+ $<span class="txt-fundbalance">&nbsp;</span></b></td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

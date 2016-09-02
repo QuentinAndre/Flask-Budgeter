@@ -1,0 +1,70 @@
+.rightalign {
+    text-align: right;
+}
+
+.simplemarg {
+    margin-bottom: 5px;
+}
+
+.doublemarg {
+    margin-bottom: 10px;
+}
+
+.triplemarg {
+    margin-bottom: 15px;
+}
+
+.row.match-my-cols {
+    overflow: hidden;
+}
+
+.row.match-my-cols [class*="col-"] {
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+}
+
+.ui-tabs .ui-tabs-nav {
+    float: none;
+    text-align: center;
+}
+
+.ui-tabs .ui-tabs-nav li {
+    width: 33%;
+}
+
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+    float: none;
+    line-height: 2em;
+}
+
+.centerBlock {
+    display: table;
+    margin: 0 auto;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.ui-dialog-titlebar-close {
+    visibility: hidden;
+}
+
+.dialog {
+    float: left;
+    margin: 12px 12px 20px 0;
+    text-align: center;
+}
+
+.centertext {
+    text-align:center;
+}
+
+.padheader  {
+    padding: 10px 15px !important;
+}
+
+
+#totalballs {
+
+}
