@@ -11,9 +11,16 @@
 <div class="container">
     <div class="row match-my-cols">
         <div class="col-md-8 col-md-offset-4">
-            Dear MTurk Worker {{ current_user.turkid }}, the game is now over. <br>
-            Your validation code for the MechanicalTurk HIT is: <strong>CFDM0087Q</strong>.<br>
-            Your bonus will be sent to you soon.
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Game is Over!</h3>
+                </div>
+                <div class="panel-body">
+                    Dear MTurk Worker {{ current_user.turkid }}, the game is now over. <br>
+                    Your validation code for the MechanicalTurk HIT is: <strong>CFDM0087Q</strong>.<br>
+                    Your bonus will be sent to you soon.
+                </div>
+            </div>
         </div>
     </div>
 </div>
