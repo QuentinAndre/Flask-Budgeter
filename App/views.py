@@ -43,9 +43,7 @@ def gamestart():
     elif user.weeknumber < 4:
         return render_template('Budgeter2.html', **template_args)
     else:
-        return """The game is over. Your validation code for the MechanicalTurk HIT is:
-        CFDM0087Q
-        Your bonus will be sent to you soon."""
+        return render_template('EndGame.html')
 
 @app.route("/login")
 def login():

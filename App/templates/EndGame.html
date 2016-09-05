@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href={{ url_for('static', filename='Budgeter.css') }}>
+    <title>Game is Over!</title>
+</head>
+<body>
+<div class="container">
+    <div class="row match-my-cols">
+        <div class="col-md-8 col-md-offset-4">
+            Dear MTurk Worker {{ current_user.turkid }}, the game is now over. <br>
+            Your validation code for the MechanicalTurk HIT is: <strong>CFDM0087Q</strong>.<br>
+            Your bonus will be sent to you soon.
+        </div>
+    </div>
+</div>
+</body>
+</html>
