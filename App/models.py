@@ -12,7 +12,7 @@ class Response(db.Model):
     salaryhistory = db.Column('salaryhistory', db.String(50))
     foodhistorysalary = db.Column('foodhistorysalary', db.String(50))
     foodhistoryfund = db.Column('foodhistoryfund', db.String(50))
-    timespenthistory = db.Column(db.String(50))
+    timespenthistory = db.Column('timespenthistory', db.String(50))
 
     def __init__(self, turkid, fundtype):
         self.turkid = turkid
