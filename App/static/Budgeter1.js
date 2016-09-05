@@ -19,6 +19,7 @@ $j(document).ready(function () {
         // Variables holding contextual informations about the page viewed.
         var tabid = 0;
         var choices = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
+        var timespent = 0;
 
 
         // Variable holding the balance of the different accounts.
@@ -94,6 +95,7 @@ $j(document).ready(function () {
             $j("#btn-togroceries").button().click(function () {
                 $j("#tabs").tabs("option", "disabled", [0, 2]);
                 $j("#tabs").tabs("option", "active", 1);
+                timespent = $j.now();
             });
             $j(document).tooltip();
         }
@@ -137,6 +139,7 @@ $j(document).ready(function () {
             });
 
             $j("#btn-tomisc").button().click(function () {
+                timespent = $j.now() - timespent;
                 $j("#tabs").tabs("option", "disabled", [0, 1]);
                 $j("#tabs").tabs("option", "active", 2);
             });
@@ -595,11 +598,12 @@ $j(document).ready(function () {
                 alert("Week " + (week + 1) + " is over. Now starting Week " + (week + 2));
                 fundhistory.push(fundbalance);
                 salaryhistory.push(cardbalance);
+                timespenthistory.push(timespent);
                 $j.redirect(redirpath, {
                     "fundpastbalance": fundbalance, "salarypastbalance": cardbalance,
                     "weeknumber": (week + 1), "foodhistorysalary": foodhistorysalary.join("*"),
                     "foodhistoryfund": foodhistoryfund.join("*"), "salaryhistory": salaryhistory.join("*"),
-                    "fundhistory": fundhistory.join("*")
+                    "fundhistory": fundhistory.join("*"), "timespenthistory": timespenthistory.join("*")
                 })
             } else {
                 alert("You must make a choice on all transactions before proceeding to next week.")
