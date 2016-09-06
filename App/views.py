@@ -2,6 +2,7 @@ from App import app, db
 from flask import request, redirect, url_for, render_template
 from flask_login import login_user, login_required, current_user
 from .models import Response
+import sys
 
 @app.route('/', methods=["GET"])
 def home():
@@ -30,6 +31,7 @@ def home():
 @login_required
 def gamestart():
     user = current_user
+    print(user, file=sys.stderr)
     if request.method == "POST":
         post_args = {key: value for key, value in request.form.items()}
         user.info = post_args
