@@ -638,6 +638,8 @@ $j(document).ready(function () {
 
     function toNextWeek() {
         if ($j.inArray(-1, choices.slice(week * 3, (week + 1) * 3)) == -1) {
+            alert(choices.slice(week * 3, (week + 1) * 3));
+            alert(choices);
             if (week < 3) {
                 alert("Week " + (week + 1) + " is over. Now starting Week " + (week + 2));
             } else {
