@@ -651,7 +651,7 @@ $j(document).ready(function () {
                 "fundpastbalance": fundbalance, "salarypastbalance": cardbalance,
                 "weeknumber": (week + 1), "foodhistorysalary": foodhistorysalary.join("*"),
                 "foodhistoryfund": foodhistoryfund.join("*"), "salaryhistory": salaryhistory.join("*"),
-                "fundhistory": fundhistory.join("*"), "timespenthistory": timespenthistory
+                "fundhistory": fundhistory.join("*"), "timespenthistory": timespenthistory.join("*")
             })
         } else {
             alert("You must make a choice on all transactions before proceeding to next week.")
