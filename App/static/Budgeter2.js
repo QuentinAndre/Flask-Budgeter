@@ -20,7 +20,7 @@ $j(document).ready(function () {
 
     // Variables holding contextual information about the page viewed.
     var tabid = 0;
-    var choices = choices.map(function (x) {
+    choices = choices.map(function (x) {
         return parseInt(x, 10);
     });
     var timespent = 0;
