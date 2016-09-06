@@ -20,6 +20,9 @@ $j(document).ready(function () {
 
     // Variables holding contextual information about the page viewed.
     var tabid = 0;
+    var choices = choices.map(function (x) {
+        return parseInt(x, 10);
+    });
     var timespent = 0;
 
     // Variable holding the balance of the different accounts.
