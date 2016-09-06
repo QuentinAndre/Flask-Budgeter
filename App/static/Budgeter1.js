@@ -14,7 +14,7 @@ $j(document).ready(function () {
         var misc_declined = "You will not join your friends*You will not buy the tech product*You will not buy painkillers*You will not buy the birthday present*You will wait to fix your oven*You will not get a haircut*You will not subscribe to the streaming service*You will not go to the National Park*You will wait and hope for the best*You will not buy the wooden desk*You will not buy new clothes*You will not attend the concert".split("*");
 
         var mealprices = [3.34, 7.76, 12.15];
-        var rent = 250;
+        var rent = 225;
 
         // Variables holding contextual informations about the page viewed.
         var tabid = 0;
@@ -41,7 +41,7 @@ $j(document).ready(function () {
         var funduses = "";
         if (fundtype == "food") {
             fundtypecaps = "Food";
-            funduses = "to pay for groceries and eat out at restaurants, but not for other types of expenses."
+            funduses = "to pay for groceries, but not for other types of expenses."
 
         } else {
             fundtypecaps = "Special";

@@ -14,6 +14,7 @@ class Response(db.Model):
     salaryhistory = db.Column('salaryhistory', db.String(50))
     foodhistorysalary = db.Column('foodhistorysalary', db.String(50))
     foodhistoryfund = db.Column('foodhistoryfund', db.String(50))
+    miscchoices = db.Column('miscchoices', db.String(50))
     timespenthistory = db.Column('timespenthistory', db.String(50))
 
     def __init__(self, turkid, fundtype):
@@ -28,6 +29,7 @@ class Response(db.Model):
         self.salaryhistory = ""
         self.foodhistoryfund = ""
         self.foodhistorysalary = ""
+        self.miscchoices = ""
         self.timespenthistory = ""
 
     def is_authenticated(self):
@@ -43,14 +45,14 @@ class Response(db.Model):
     def info(self):
         info = {}
         for key in ["fundtype", "weeknumber", "fundpastbalance", "salarypastbalance", "fundhistory",
-                    "salaryhistory", "foodhistoryfund", "foodhistorysalary", "timespenthistory"]:
+                    "salaryhistory", "foodhistoryfund", "foodhistorysalary", "timespenthistory", "miscchoices"]:
             info[key] = self.__dict__.get(key)
         return info
 
     @info.setter
     def info(self, dict):
         for key in ["weeknumber", "fundpastbalance", "salarypastbalance", "fundhistory", "salaryhistory",
-                    "foodhistoryfund", "foodhistorysalary", "timespenthistory"]:
+                    "foodhistoryfund", "foodhistorysalary", "timespenthistory", "miscchoices"]:
             if key in ["fundpastbalance", "salarypastbalance"]:
                 setattr(self, key, float(dict[key]))
             elif key == "weeknumber":

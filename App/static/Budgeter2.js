@@ -11,16 +11,15 @@ $j(document).ready(function () {
     var salary = salaries[week];
     var misc_titles = "Social Activity*High-Tech Purchase*Painkillers*Birthday Gift*Repair Fees*Barber Fees*Streaming Service*National Park*Car Repair*Yard Sale*Clothing Shop*Concert Tickets".split("*");
     var misc_texts = "Your friends are going to watch the latest action flick at the IMAX theater in town, then going out for drinks after. Do you join them?*A tech product you've had your eyes on for a long time is sold at a 50% discount this week. Do you buy it?*You wake up with a bad tooth ache, and you are out of painkillers at home. Do you go to the pharmacy to buy painkillers?*Your best friend is turning 30 this week, you have have the perfect gift idea for him. Do you buy it?*Your oven broke, and you cannot use it anymore to cook. Do you call someone to fix it?*It has been a while since you last had a haircut, and a nice barbershop has opened near your house. Do you try it?*A video streaming website is offering a one-time deal: -50% on its yearly subscription. Do you accept the deal?*You are considering going on a hike to a National Park this week-end, but you need to pay for the entrance and camping fees. Do you go?*Your car engine started making some strange noises last week, and it is not getting better. Do you take it to the garage for an inspection?*Your neighbors are doing a yard sale, and you spot a nice wooden desk at a very attractive price. Do you buy it?*You have not purchased new clothes in a while, and you just happen to have a date this week. Would you use the occasion to buy a nice shirt and a pair of pants?*A musician that you like a lot is touring in town next month. Do you buy tickets to the show?".split("*");
-    var misc_prices = "35*150*20*40*200*30*60*45*250*100*120*30".split("*");
+    var misc_prices = "35*120*20*40*100*30*60*45*250*100*120*30".split("*");
     var misc_declined = "You will not join your friends*You will not buy the tech product*You will not buy painkillers*You will not buy the birthday present*You will wait to fix your oven*You will not get a haircut*You will not subscribe to the streaming service*You will not go to the National Park*You will wait and hope for the best*You will not buy the wooden desk*You will not buy new clothes*You will not attend the concert".split("*");
 
 
     var mealprices = [3.34, 7.76, 12.15];
-    var rent = 250;
+    var rent = 225;
 
     // Variables holding contextual information about the page viewed.
     var tabid = 0;
-    var choices = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
     var timespent = 0;
 
     // Variable holding the balance of the different accounts.
@@ -651,7 +650,8 @@ $j(document).ready(function () {
                 "fundpastbalance": fundbalance, "salarypastbalance": cardbalance,
                 "weeknumber": (week + 1), "foodhistorysalary": foodhistorysalary.join("*"),
                 "foodhistoryfund": foodhistoryfund.join("*"), "salaryhistory": salaryhistory.join("*"),
-                "fundhistory": fundhistory.join("*"), "timespenthistory": timespenthistory.join("*")
+                "fundhistory": fundhistory.join("*"), "timespenthistory": timespenthistory.join("*"),
+                "miscchoices": choices.join("*")
             })
         } else {
             alert("You must make a choice on all transactions before proceeding to next week.")
