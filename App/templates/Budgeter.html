@@ -10,17 +10,16 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
     <script>
+        var redirpath = "{{ redirpath }}";
+        var fundtype = "{{ fundtype }}";
+        var week = parseInt("{{ weeknumber }}");
         var fundpastbalance = parseFloat(parseFloat("{{ fundpastbalance }}").toFixed(2));
         var salarypastbalance = parseFloat(parseFloat("{{ salarypastbalance }}").toFixed(2));
-        var week = parseInt("{{ weeknumber }}");
-        var fundtype = "{{ fundtype }}";
-        var redirpath = "{{ redirpath }}";
         var fundhistory = [];
         var salaryhistory = [];
         var foodhistorysalary = [];
         var foodhistoryfund = [];
         var timespenthistory = [];
-        var turkid = "{{ turkid }}";
     </script>
     <script src={{ url_for('static', filename='Budgeter1.js') }}></script>
     <script src={{ url_for('static', filename='redirect.js') }}></script>
