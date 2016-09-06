@@ -6,7 +6,7 @@ class Response(db.Model):
     turkid = db.Column('turkid', db.String(20), unique=True, index=True, primary_key=True)
     fundtype = db.Column('fundtype', db.String(20))
     startdate = db.Column('startdate', db.DateTime)
-    enddate = db.Column('startdate', db.DateTime)
+    enddate = db.Column('enddate', db.DateTime)
     weeknumber = db.Column('weeknumber', db.Integer())
     fundpastbalance = db.Column('fundpastbalance', db.Float())
     salarypastbalance = db.Column('salarypastbalance', db.Float())
