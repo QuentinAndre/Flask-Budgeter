@@ -223,7 +223,7 @@ $j(document).ready(function () {
                     }
                 };
             } else if (dialogtype == "FundFull") {
-                prompt = baseprompt + '<span class="fundtype">food</span> card.';
+                prompt = baseprompt + '<span class="txt-fundtype">food</span> card.';
                 buttons = {
                     "Proceed with the transaction": function () {
                         processMiscTransaction(misctitle, 0, miscfromfund);
