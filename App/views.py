@@ -39,7 +39,7 @@ def game():
 
     print(user, file=sys.stderr)
     template_args = user.info.copy()
-    template_args["redirpath"] = url_for('gamestart')
+    template_args["redirpath"] = url_for('game')
     if user.weeknumber == 0:
         db.session.commit()
         return render_template('Budgeter.html', **template_args)
