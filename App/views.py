@@ -2,6 +2,7 @@ from App import app, db
 from flask import request, redirect, url_for, render_template
 from flask_login import login_user, login_required, current_user
 from .models import Response
+from datetime import datetime
 import sys
 
 @app.route('/', methods=["GET"])
@@ -39,12 +40,15 @@ def gamestart():
 
     template_args = user.info.copy()
     template_args["redirpath"] = url_for('gamestart')
-    db.session.commit()
     if user.weeknumber == 0:
+        db.session.commit()
         return render_template('Budgeter.html', **template_args)
     elif user.weeknumber < 4:
+        db.session.commit()
         return render_template('Budgeter2.html', **template_args)
     else:
+        user.enddate = datetime.utcnow()
+        db.session.commit()
         return render_template('EndGame.html')
 
 @app.route("/login")

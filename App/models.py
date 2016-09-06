@@ -1,10 +1,12 @@
 from App import db, login_manager
-
+from datetime import datetime
 
 class Response(db.Model):
     __tablename__ = "responses"
     turkid = db.Column('turkid', db.String(20), unique=True, index=True, primary_key=True)
     fundtype = db.Column('fundtype', db.String(20))
+    startdate = db.Column('startdate', db.DateTime)
+    enddate = db.Column('startdate', db.DateTime)
     weeknumber = db.Column('weeknumber', db.Integer())
     fundpastbalance = db.Column('fundpastbalance', db.Float())
     salarypastbalance = db.Column('salarypastbalance', db.Float())
@@ -17,6 +19,8 @@ class Response(db.Model):
     def __init__(self, turkid, fundtype):
         self.turkid = turkid
         self.fundtype = fundtype
+        self.startdate = datetime.utcnow()
+        self.enddate = datetime.utcnow()
         self.weeknumber = 0
         self.fundpastbalance = 100
         self.salarypastbalance = 0
