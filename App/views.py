@@ -5,6 +5,7 @@ from .models import Response
 from datetime import datetime
 import sys
 
+@app.route('/start', methods=["GET"])
 @app.route('/', methods=["GET"])
 def home():
     if current_user.is_authenticated:
@@ -25,19 +26,18 @@ def home():
         login_user(user, remember=True)
         db.session.add(user)
         db.session.commit()
-    return redirect(url_for('gamestart'))
+    return redirect(url_for('game'))
 
 
-@app.route('/gamestart', methods=["GET", "POST"])
+@app.route('/game', methods=["GET", "POST"])
 @login_required
-def gamestart():
+def game():
     user = current_user
-    print(user, file=sys.stderr)
     if request.method == "POST":
         post_args = {key: value for key, value in request.form.items()}
         user.info = post_args
 
-
+    print(user, file=sys.stderr)
     template_args = user.info.copy()
     template_args["redirpath"] = url_for('gamestart')
     if user.weeknumber == 0:
