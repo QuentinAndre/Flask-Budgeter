@@ -352,7 +352,7 @@ $j(document).ready(function () {
                     }
                 }
             } else if (dialogtype == "Denied") {
-                prompt = 'Your total balance is insufficient to pay for $<span class="txt-foodamount">&nbsp;</span> in groceries. Please adjust your meal choices';
+                prompt = 'Your total balance is insufficient to pay for $<span class="txt-foodamount">&nbsp;</span> in groceries. Please adjust your menu choices';
                 buttons = {
                     Ok: function () {
                         $j(this).dialog("close");
