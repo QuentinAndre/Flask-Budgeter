@@ -2,7 +2,6 @@ from flask import Flask
 from flask_heroku import Heroku
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-import sys
 app = Flask(__name__)
 app.config.from_object('config')
 heroku = Heroku(app)
