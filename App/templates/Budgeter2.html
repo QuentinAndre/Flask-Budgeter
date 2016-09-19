@@ -15,12 +15,12 @@
         var week = parseInt("{{ weeknumber }}");
         var fundpastbalance = parseFloat(parseFloat("{{ fundpastbalance }}").toFixed(2));
         var salarypastbalance = parseFloat(parseFloat("{{ salarypastbalance }}").toFixed(2));
-        var fundhistory = "{{ fundhistory }}".split("*");
-        var salaryhistory = "{{ salaryhistory }}".split("*");
-        var foodhistorysalary = "{{ foodhistorysalary }}".split("*");
-        var foodhistoryfund = "{{ foodhistoryfund }}".split("*");
-        var timespenthistory = "{{ timespenthistory }}".split("*");
-        var choices = "{{ miscchoices }}".split("*");
+        var fundhistory = {{ fundhistory }};
+        var salaryhistory = {{ salaryhistory }};
+        var foodhistorysalary = {{ foodhistorysalary }};
+        var foodhistoryfund = {{ foodhistoryfund }};
+        var timespenthistory = {{ timespenthistory }};
+        var choices = {{ miscchoices }};
     </script>
     <script src={{ url_for('static', filename='Budgeter2.js') }}></script>
     <script src={{ url_for('static', filename='redirect.js') }}></script>

@@ -600,11 +600,14 @@ $j(document).ready(function () {
                 salaryhistory.push(cardbalance);
                 timespenthistory.push(timespent);
                 $j.redirect(redirpath, {
-                    "fundpastbalance": fundbalance, "salarypastbalance": cardbalance,
-                    "weeknumber": (week + 1), "foodhistorysalary": foodhistorysalary.join("*"),
-                    "foodhistoryfund": foodhistoryfund.join("*"), "salaryhistory": salaryhistory.join("*"),
-                    "fundhistory": fundhistory.join("*"), "timespenthistory": timespenthistory.join("*"),
-                    "miscchoices": choices.join("*")
+                    "jsondata": JSON.stringify({
+                            "fundpastbalance": fundbalance, "salarypastbalance": cardbalance,
+                            "weeknumber": (week + 1), "foodhistorysalary": foodhistorysalary,
+                            "foodhistoryfund": foodhistoryfund, "salaryhistory": salaryhistory,
+                            "fundhistory": fundhistory, "timespenthistory": timespenthistory,
+                            "miscchoices": choices
+                        }
+                    )
                 })
             } else {
                 alert("You must make a choice on all transactions before proceeding to next week.")

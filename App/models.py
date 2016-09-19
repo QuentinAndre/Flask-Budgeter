@@ -1,5 +1,6 @@
 from App import db, login_manager
 from datetime import datetime
+from sqlalchemy.dialects.postgresql import ARRAY
 
 class Response(db.Model):
     __tablename__ = "responses"
@@ -10,12 +11,12 @@ class Response(db.Model):
     weeknumber = db.Column('weeknumber', db.Integer())
     fundpastbalance = db.Column('fundpastbalance', db.Float())
     salarypastbalance = db.Column('salarypastbalance', db.Float())
-    fundhistory = db.Column('fundhistory', db.String(50))
-    salaryhistory = db.Column('salaryhistory', db.String(50))
-    foodhistorysalary = db.Column('foodhistorysalary', db.String(50))
-    foodhistoryfund = db.Column('foodhistoryfund', db.String(50))
-    miscchoices = db.Column('miscchoices', db.String(50))
-    timespenthistory = db.Column('timespenthistory', db.String(50))
+    fundhistory = db.Column('fundhistory', ARRAY(db.Float()))
+    salaryhistory = db.Column('salaryhistory', ARRAY(db.Float()))
+    foodhistorysalary = db.Column('foodhistorysalary', ARRAY(db.Float()))
+    foodhistoryfund = db.Column('foodhistoryfund', ARRAY(db.Float()))
+    miscchoices = db.Column('miscchoices', ARRAY(db.Float()))
+    timespenthistory = db.Column('timespenthistory', ARRAY(db.Float()))
 
     def __init__(self, turkid, fundtype):
         self.turkid = turkid
@@ -25,12 +26,12 @@ class Response(db.Model):
         self.weeknumber = 0
         self.fundpastbalance = 100
         self.salarypastbalance = 0
-        self.fundhistory = ""
-        self.salaryhistory = ""
-        self.foodhistoryfund = ""
-        self.foodhistorysalary = ""
-        self.miscchoices = ""
-        self.timespenthistory = ""
+        self.fundhistory = []
+        self.salaryhistory = []
+        self.foodhistoryfund = []
+        self.foodhistorysalary = []
+        self.miscchoices = []
+        self.timespenthistory = []
 
     def is_authenticated(self):
         return True

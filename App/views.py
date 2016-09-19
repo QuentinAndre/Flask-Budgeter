@@ -1,9 +1,10 @@
 from App import app, db
 from flask import request, redirect, url_for, render_template
-from flask_login import login_user, login_required, current_user
+from flask_login import login_user, login_required, current_user, logout_user
 from .models import Response
 from datetime import datetime
 import sys
+import json
 
 @app.route('/start', methods=["GET"])
 @app.route('/', methods=["GET"])
@@ -13,7 +14,7 @@ def home():
 
     turkid = request.args.get("turkid")
     if turkid is None:
-        return redirect(url_for('gamestart'))
+        return redirect(url_for('game'))
 
     user = Response.query.filter_by(turkid=turkid).first()
 
@@ -34,8 +35,8 @@ def home():
 def game():
     user = current_user
     if request.method == "POST":
-        post_args = {key: value for key, value in request.form.items()}
-        user.info = post_args
+        data = json.loads(request.form['jsondata'])
+        user.info = {key: value for key, value in data.items()}
 
     print(user, file=sys.stderr)
     template_args = user.info.copy()
