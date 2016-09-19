@@ -668,6 +668,7 @@ $j(document).ready(function () {
         refreshTotal("food");
         $j(".container").show();
         $j("#errormessage").hide();
+        $j(document).tooltip();
 
     }
 );

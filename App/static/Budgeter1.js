@@ -143,9 +143,6 @@ $j(document).ready(function () {
                 $j("#tabs").tabs("option", "disabled", [0, 1]);
                 $j("#tabs").tabs("option", "active", 2);
             });
-            $j(document).tooltip();
-
-
         }
 
         function initMiscPage(week) {
@@ -621,5 +618,6 @@ $j(document).ready(function () {
         refreshTotal("food");
         $j(".container").show();
         $j("#errormessage").hide();
+        $j(document).tooltip();
     }
 );
