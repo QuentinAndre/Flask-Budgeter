@@ -244,7 +244,7 @@ $j(document).ready(function () {
         }
 
 
-        function createMiscDialog(dialogtype) {
+                function createMiscDialog(dialogtype) {
             var baseprompt = 'You are about to pay $<span class="txt-miscamount">&nbsp;</span> using your ';
             var prompt = "";
             var buttons = {};
@@ -269,7 +269,7 @@ $j(document).ready(function () {
                     }
                 };
             } else if (dialogtype == "FundFull") {
-                prompt = baseprompt + '<span class="txt-fundtype">food</span> card.';
+                prompt = baseprompt + '<span class="txt-fundtype">food</span> card. This card can be used <span class="txt-funduses"></span>';
                 buttons = {
                     "Proceed with the transaction": function () {
                         processMiscTransaction(misctitle, 0, miscfromfund);
@@ -291,7 +291,7 @@ $j(document).ready(function () {
                     }
                 }
             } else if (dialogtype == "FundSplit") {
-                prompt = baseprompt + '<span class="txt-fundtype">food</span> card, but you only have $<span class="txt-fundbalance">&nbsp;</span> left on this card. <br><br>The extra $<span class="txt-funddiff">&nbsp;</span> will be paid using your debit card.';
+                prompt = baseprompt + '<span class="txt-fundtype">food</span> card (which can be used <span class="txt-funduses"></span>), but you only have $<span class="txt-fundbalance">&nbsp;</span> left on this card. <br><br>The extra $<span class="txt-funddiff">&nbsp;</span> will be paid using your debit card.';
                 buttons = {
                     "Proceed with both transactions": function () {
                         processMiscTransaction(misctitle, miscfromcard, miscfromfund);
@@ -302,7 +302,7 @@ $j(document).ready(function () {
                     }
                 }
             } else if (dialogtype == "CardSplit") {
-                prompt = baseprompt + 'debit card, but you only have $<span class="txt-cardbalance">&nbsp;</span> left on this card. <br><br>The extra $<span class="txt-carddiff">&nbsp;</span> will be paid using your <span class="txt-fundtype">food</span> card.';
+                prompt = baseprompt + 'debit card, but you only have $<span class="txt-cardbalance">&nbsp;</span> left on this card. <br><br>The extra $<span class="txt-carddiff">&nbsp;</span> will be paid using your <span class="txt-fundtype">food</span> card (which can be used <span class="txt-funduses"></span>)';
                 buttons = {
                     "Proceed with both transactions": function () {
                         processMiscTransaction(misctitle, miscfromcard, miscfromfund);
@@ -347,7 +347,7 @@ $j(document).ready(function () {
             var buttons = {};
 
             if (dialogtype == "FundFull") {
-                prompt = baseprompt + '<span class="txt-fundtype">food</span> card.';
+                prompt = baseprompt + '<span class="txt-fundtype">food</span> card. This card can be used <span class="txt-funduses"></span>';
                 buttons = {
                     "Proceed with the transaction": function () {
                         processFoodTransaction(0, foodfromfund);
@@ -369,7 +369,7 @@ $j(document).ready(function () {
                     }
                 }
             } else if (dialogtype == "FundSplit") {
-                prompt = baseprompt + '<span class="txt-fundtype">food</span> card, but you only have $<span class="txt-fundbalance">&nbsp;</span> left on this card. <br><br>The extra $<span class="txt-funddiff">&nbsp;</span> will be paid using your debit card.';
+                prompt = baseprompt + '<span class="txt-fundtype">food</span> card (which can be used <span class="txt-funduses"></span>), but you only have $<span class="txt-fundbalance">&nbsp;</span> left on this card. <br><br>The extra $<span class="txt-funddiff">&nbsp;</span> will be paid using your debit card.';
                 buttons = {
                     "Proceed with both transactions": function () {
                         processFoodTransaction(foodfromcard, foodfromfund);
@@ -380,7 +380,7 @@ $j(document).ready(function () {
                     }
                 }
             } else if (dialogtype == "CardSplit") {
-                prompt = baseprompt + 'debit card, but you only have $<span class="txt-cardbalance">&nbsp;</span> left on this card. <br><br>The extra $<span class="txt-carddiff">&nbsp;</span> will be paid using your <span class="txt-fundtype">food</span> card.';
+                prompt = baseprompt + 'debit card, but you only have $<span class="txt-cardbalance">&nbsp;</span> left on this card. <br><br>The extra $<span class="txt-carddiff">&nbsp;</span> will be paid using your <span class="txt-fundtype">food</span> card (which can be used <span class="txt-funduses"></span>).';
                 buttons = {
                     "Proceed with both transactions": function () {
                         processFoodTransaction(foodfromcard, foodfromfund);
@@ -398,7 +398,7 @@ $j(document).ready(function () {
                     }
                 }
             } else if (dialogtype == "Denied") {
-                prompt = 'Your total balance is insufficient to pay for $<span class="txt-foodamount">&nbsp;</span> in groceries. Please adjust your meal choices';
+                prompt = 'Your total balance is insufficient to pay for $<span class="txt-foodamount">&nbsp;</span> in groceries. Please adjust your menu choices';
                 buttons = {
                     Ok: function () {
                         $j(this).dialog("close");
@@ -606,6 +606,7 @@ $j(document).ready(function () {
             $j(".txt-funddiff").text(funddiff);
             $j(".txt-fundtype").text(fundtype);
             $j(".txt-fundtypecaps").text(fundtypecaps);
+            $j('.txt-funduses').text(funduses);
         }
 
 
