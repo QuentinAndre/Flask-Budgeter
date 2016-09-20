@@ -3,7 +3,6 @@ from flask import request, redirect, url_for, render_template
 from flask_login import login_user, login_required, current_user, logout_user
 from .models import Response
 from datetime import datetime
-import sys
 import json
 
 @app.route('/start', methods=["GET"])
@@ -38,7 +37,6 @@ def game():
         data = json.loads(request.form['jsondata'])
         user.info = {key: value for key, value in data.items()}
 
-    print(user, file=sys.stderr)
     template_args = user.info.copy()
     template_args["redirpath"] = url_for('game')
     if user.weeknumber == 0:
